@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from 'reactstrap';
-import "../../App.css"
+import "./demand.css";
 
 export default class InputComponent extends React.Component {
 	constructor(props) {

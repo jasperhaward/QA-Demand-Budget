@@ -30,11 +30,12 @@ export default class AppNavbar extends Component {
    			<div>
 		        <Navbar style={{backgroundColor: "#5514b4"}} dark expand="md">
         		    <Container>
-                		<NavbarBrand href='/budget'>QA Demand</NavbarBrand>
+                		<NavbarBrand href='/demand'>QA Demand</NavbarBrand>
 		                <NavbarToggler onClick={this.toggle}/>
         		        <Collapse isOpen={this.state.isOpen} navbar>
                 		    <Nav className="mr-auto" navbar>
-								<NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/budget">Budget</NavLink></NavItem>
+								<NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/demand">Budget</NavLink></NavItem>
+								<NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/upload">Upload</NavLink></NavItem>
 		                        <NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/devs">People</NavLink></NavItem>
         		                <NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/globals">Globals</NavLink></NavItem>
 

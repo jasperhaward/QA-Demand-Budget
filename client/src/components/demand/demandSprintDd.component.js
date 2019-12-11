@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axiosConfig from '../../auth/axiosConfig';
 import config from "../../config.js"
-import "../../App.css"
+import "./demand.css";
 import { 
 	Dropdown, 
 	DropdownItem, 

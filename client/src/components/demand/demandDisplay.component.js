@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import axiosConfig from '../../auth/axiosConfig';
 import { Table, Container } from 'reactstrap';
-import "../../App.css"
+import "./demand.css";
 import config from '../../config.js';
-import TableRow from "./budgetTableRow.component"
-import FunctionBar from "./budgetFunctionBar.component"
+import TableRow from "./demandTableRow.component"
+import FunctionBar from "./demandFunctionBar.component"
 
-export default class BudgetDisplay extends Component {
+export default class DemandDisplay extends Component {
   	constructor(props) {
 		super(props);
 		

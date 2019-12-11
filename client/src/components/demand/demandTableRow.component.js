@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import IssuesTable from "./budgetIssuesTable.component"
-import "../../App.css"
+import IssuesTable from "./demandIssuesTable.component"
+import "./demand.css";
 
 export default class TableRow extends Component {
   	constructor(props) {

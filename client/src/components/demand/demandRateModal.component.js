@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import axiosConfig from '../../auth/axiosConfig';
 import config from '../../config.js';
-import "../../App.css";
+import "./demand.css";
 import { 
 	Button,
 	Modal,
@@ -9,8 +9,8 @@ import {
 	ModalHeader,
 	Table
 } from 'reactstrap';
-import InputComponent from "./budgetInput.component";
-import SprintDropDown from "./budgetSprintDd.component"
+import InputComponent from "./demandInput.component";
+import SprintDropDown from "./demandSprintDd.component"
 
 const RateTd = (props) => {
 	return (

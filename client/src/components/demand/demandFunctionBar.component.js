@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import SprintDropDown from "./budgetSprintDd.component"
-import RateModal from "./budgetRateModal.component"
+import SprintDropDown from "./demandSprintDd.component"
+import RateModal from "./demandRateModal.component"
 import { Input } from 'reactstrap';
-import "../../App.css"
+import "./demand.css";
 
 export default class FunctionBar extends Component {
   	render () {

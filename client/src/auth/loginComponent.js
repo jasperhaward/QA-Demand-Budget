@@ -20,7 +20,7 @@ function Login(props) {
 	}
 
   	if (props.validToken) {
-    	return <Redirect to="/budget" />;
+    	return <Redirect to="/demand" />;
 	}
 
   	return (

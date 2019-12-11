@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Table } from 'reactstrap';
-import IssueModal from "./budgetIssueModal.component"
-import "../../App.css"
+import IssueModal from "./demandIssueModal.component"
+import "./demand.css";
 import config from '../../config.js';
 
 const Issue = (props) => {
