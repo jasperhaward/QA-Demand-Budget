@@ -1,0 +1,98 @@
+.App {
+  text-align: center;
+}
+
+Form {
+	padding: 20px;
+}
+
+Input + Button {
+	margin: 20px;
+}
+
+Table {
+	overflow-x: scroll;  
+	margin: 0px !important;
+	border-collapse: separate !important;
+	text-align: center;
+}
+
+th {
+	font-weight: normal;
+	color: #fff;
+	background-color: #5514b4;
+}
+
+td {
+	vertical-align: middle !important;
+	font-size: 14px;
+}
+
+td img {
+	height: 40px;
+	width: 40px;
+}
+
+label {
+	margin-top: 7px
+}
+
+.ImageTd {
+	text-align: center;
+}
+
+.Button, .Button:hover, .Button:active, .Button:focus {
+	background-color: #5514b4 !important;
+}
+
+.Title {
+	background-color: #5514b4;
+	color: #fff;
+	height: 40px;
+	line-height: 40px; 
+	border-top-left-radius: 4px;
+	border-top-right-radius: 4px;
+	font-size: 1.8vh;
+}
+
+.DropDown, .DropDown:hover, .DropDown:active, .DropDown:focus{
+	width: 140px;
+	background-color: #5514b4 !important;
+}
+
+.TableDiv {
+	margin: 0px 10px 5px 10px;
+}
+
+.Container {
+	min-width: 1500px !important;
+	margin-top: 20px;
+	border-radius: 4px;
+	box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+	font-family: Verdana, Geneva, Tahoma, sans-serif; 
+	padding: 0px !important;
+}
+
+.FunctionBar {
+	display: flex;
+	justify-content: space-between; 
+	align-items: center; 
+	margin: 15px 15px 10px 15px;
+}
+
+.RateBar {
+	display: flex;
+	justify-content: space-between; 
+	align-items: center;
+	margin: 0px 90px 15px 0px;
+}
+
+.Column {
+	width: 120px;
+	min-width: 100px;
+}
+
+.Status {
+	width: 170px;
+	min-width: 160px;
+}
