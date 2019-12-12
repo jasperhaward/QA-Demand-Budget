@@ -18,7 +18,7 @@ export default class DemandDisplay extends Component {
       		issues: [],
 			projects: [],
 			rates: [],
-			sprint: 'All',
+			sprint: { name: 'All' },
 			status: {
 				new: true,
 				dev: true,
@@ -45,9 +45,9 @@ export default class DemandDisplay extends Component {
 		var issues = [];
 		issues = this.state.issues
 				.filter( issue => issue.fields.project.key === projectKey )
-				.filter( issue => ( !issue.fields.sprint && this.state.sprint === "Un-assigned" ) ||
-								  ( issue.fields.sprint && issue.fields.sprint.name === this.state.sprint ) || 
-								  this.state.sprint === "All" )
+				.filter( issue => ( !issue.fields.sprint && this.state.sprint.name === "Un-assigned" ) ||
+								  ( issue.fields.sprint && issue.fields.sprint.name === this.state.sprint.name ) || 
+								  this.state.sprint.name === "All" )
 				.filter( issue => ( issue.fields.status.name.includes("New") && this.state.status.new ) ||
 								  ( issue.fields.status.name.includes("Developer") && this.state.status.dev ) ||
 								  ( issue.fields.status.name.includes("Owner") && this.state.status.owner ) ||
@@ -117,6 +117,7 @@ export default class DemandDisplay extends Component {
           						<th>Estimated Hours</th>
           						<th>Rate (£)</th>
           						<th>Total Demand Cost (£)</th>
+								<th>Upload demand</th>
 		    				</tr>
     	  				</thead>
 					

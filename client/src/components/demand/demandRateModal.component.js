@@ -97,7 +97,7 @@ export default class RateModal extends Component {
 							<thead>
 								<tr>
 									<th>Projects</th>
-									<th>Previous Rate</th>
+									<th>Current Rate</th>
 									<th>Update Rate</th>
 								</tr>
 							</thead>

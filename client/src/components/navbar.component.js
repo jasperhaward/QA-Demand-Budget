@@ -34,15 +34,13 @@ export default class AppNavbar extends Component {
 		                <NavbarToggler onClick={this.toggle}/>
         		        <Collapse isOpen={this.state.isOpen} navbar>
                 		    <Nav className="mr-auto" navbar>
-								<NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/demand">Budget</NavLink></NavItem>
-								<NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/upload">Upload</NavLink></NavItem>
+								<NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/demand">Demand</NavLink></NavItem>
 		                        <NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/devs">People</NavLink></NavItem>
         		                <NavItem hidden={!this.props.validToken}><NavLink tag={Link} to="/globals">Globals</NavLink></NavItem>
 
-								{ this.props.validToken ?
-									<NavItem onClick={this.props.logout()}><NavLink tag={Link} to="/login">Logout</NavLink></NavItem> :
-									<NavItem><NavLink tag={Link} to="/login">Login</NavLink></NavItem> 
-								}
+								{this.props.validToken 
+								? <NavItem onClick={this.props.logout()}><NavLink tag={Link} to="/login">Logout</NavLink></NavItem>
+								: <NavItem><NavLink tag={Link} to="/login">Login</NavLink></NavItem> }
                     		</Nav>
                 		</Collapse>
             		</Container>

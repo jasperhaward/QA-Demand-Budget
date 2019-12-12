@@ -29,18 +29,18 @@ export default class SprintDropDown extends Component {
 		if ( this.props.additionalOptions ) {
 			return (
 				<DropdownMenu>
-				<DropdownItem onClick={() => this.props.updateSprint('All') }>
+				<DropdownItem onClick={() => this.props.updateSprint({ name: 'All' })}>
 							All
 				</DropdownItem>
-				<DropdownItem onClick={() => this.props.updateSprint('Un-assigned') }>
+				<DropdownItem onClick={() => this.props.updateSprint({ name: 'Un-assigned' })}>
 					Un-assigned
 				</DropdownItem>
 				<DropdownItem divider/>
-					{this.state.sprints.map( sprint => (
-						<DropdownItem key={sprint.id} onClick={() => this.props.updateSprint(sprint.name) }>
-							{sprint.name}
-						</DropdownItem>
-					))}
+				{this.state.sprints.map( sprint => (
+					<DropdownItem key={sprint.id} onClick={() => this.props.updateSprint(sprint) }>
+						{sprint.name}
+					</DropdownItem>
+				))}
 				</DropdownMenu>
 			)
 		}
@@ -48,7 +48,7 @@ export default class SprintDropDown extends Component {
 		return (
 			<DropdownMenu>
 				{this.state.sprints.map( sprint => (
-					<DropdownItem key={sprint.id} onClick={() => this.props.updateSprint(sprint.name) }>
+					<DropdownItem key={sprint.id} onClick={() => this.props.updateSprint(sprint) }>
 						{sprint.name}
 					</DropdownItem>
 				))}
@@ -62,7 +62,7 @@ export default class SprintDropDown extends Component {
 		return (
 			<Dropdown isOpen={this.state.dropDownOpen} toggle={toggleDropDown} >
 				<DropdownToggle className="DropDown" caret>
-					{this.props.sprint}
+					{this.props.sprint.name}
 				</DropdownToggle>
 				{this.renderMenu()}
 			</Dropdown>

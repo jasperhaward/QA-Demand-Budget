@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import IssuesTable from "./demandIssuesTable.component"
+import IssuesTable from "./demandIssuesTable.component";
+import UploadModal from "../upload/uploadModal.component";
 import "./demand.css";
 
 export default class TableRow extends Component {
@@ -50,10 +51,11 @@ export default class TableRow extends Component {
 					<td>{ this.totalEstimatedHours() + "h"}</td>
 					<td>{ this.props.rate || "Select Sprint"}</td>
 					<td>{ this.totalCost() }</td>
+					<td><UploadModal project={this.props.project} sprint={this.props.sprint}/></td>
 			    </tr>
 
 			  	<tr>
-					<td colSpan={7} hidden={this.state.issueTableClosed}>
+					<td colSpan={8} hidden={this.state.issueTableClosed || !this.props.issues.length}>
 						<IssuesTable issues={this.props.issues} rate={this.props.rate}/>
 					</td>
 				</tr>

@@ -15,3 +15,12 @@
 	border-top-right-radius: 4px;
 	font-size: 1.8vh;
 }
+
+.DropDown, .DropDown:hover, .DropDown:active, .DropDown:focus{
+	width: 140px;
+	background-color: #5514b4 !important;
+}
+
+.Button, .Button:hover, .Button:active, .Button:focus {
+	background-color: #5514b4 !important;
+}

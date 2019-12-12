@@ -8,7 +8,7 @@ Input + Button {
 
 Table {
 	overflow-x: scroll;  
-	margin: 0px !important;
+	margin: 0px 0px 0px 0px !important;
 	border-collapse: separate !important;
 	text-align: center;
 }
@@ -85,10 +85,10 @@ label {
 
 .Column {
 	width: 120px;
-	min-width: 100px;
+	min-width: 120px;
 }
 
 .Status {
-	width: 170px;
-	min-width: 160px;
+	width: 180px;
+	min-width: 180px;
 }

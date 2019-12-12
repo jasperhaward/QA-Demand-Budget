@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import {BrowserRouter as Router, Route } from "react-router-dom";
 import './App.css';
 import DemandDisplay from "./components/demand/demandDisplay.component";
-import UploadDisplay from "./components/upload/uploadDisplay.component";
 import DevDisplay from "./components/devs.component";
 import AddDevDisplay from "./components/addDev.component";
 import DevEditDisplay from "./components/devsEdit.component";
@@ -48,7 +47,6 @@ function App() {
     			<AppNavbar validToken={validToken} logout={() => logout}/>
 				<Route path="/login" render={() => <Login validToken={validToken} login={login}/>}/>	
 				<PrivateRoute validToken={validToken} path="/demand" component= {DemandDisplay}/>
-				<PrivateRoute validToken={validToken} path="/upload" component= {UploadDisplay}/>
 				<PrivateRoute validToken={validToken} path="/devs" exact component= {DevDisplay} />
 				<PrivateRoute validToken={validToken} path="/devs/add/" component= {AddDevDisplay} />
 			    <PrivateRoute validToken={validToken} path="/devs/edit/:id" component= {DevEditDisplay} />

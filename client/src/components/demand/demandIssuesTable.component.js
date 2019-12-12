@@ -4,7 +4,7 @@ import IssueModal from "./demandIssueModal.component"
 import "./demand.css";
 import config from '../../config.js';
 
-const Issue = (props) => {
+const Issue = props => {
 	const issue = props.issue;
 
 	return (

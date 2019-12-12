@@ -1,21 +1,16 @@
 const router = require('express').Router();
 const request = require('request');
-const RateHistory = require("../models/rates.model")
-
-const baseUrl = 'http://localhost:8080/rest/';
-const issuesUrl = baseUrl + 'agile/1.0/board/2/issue/';
-const uniqueIssueUrl = baseUrl + "agile/1.0/issue/";
-const sprintsUrl = baseUrl + 'agile/1.0/board/9/sprint/';
-const projectsUrl = baseUrl + 'api/2/project/';
+const RateHistory = require("../models/rates.model");
+const config = require('../config');
 
 router.route("/subtasks/:id").post(async (req, res) => {
 	var subtasks = [];
-	let parent = await asyncRequest(uniqueIssueUrl + req.params.id)
+	let parent = await asyncRequest(config.uniqueIssueUrl + req.params.id)
 							.catch(err => res.status(400).json(err));
 	
 	await Promise.all(
 		parent.fields.subtasks.map(async subtask => {
-			subtask = await asyncRequest(uniqueIssueUrl + subtask.id)
+			subtask = await asyncRequest(config.uniqueIssueUrl + subtask.id)
 								.catch(err => res.status(400).json(err));
 			subtasks.push(subtask);
 		})
@@ -25,7 +20,7 @@ router.route("/subtasks/:id").post(async (req, res) => {
 })
 
 router.route('/issues').get(async (req, res) => {
-	let json = await asyncRequest(issuesUrl)
+	let json = await asyncRequest(config.issuesUrl)
 						.catch(err => res.status(400).json(err));
 	var issues = json.issues;
 
@@ -57,19 +52,19 @@ function switchCase (issue) {
 }
  
 router.route('/projects').get(async (req, res) => {
-	let json = await asyncRequest(projectsUrl)
+	let json = await asyncRequest(config.projectsUrl)
 					 	.catch(err => res.status(400).json(err));
 	res.json(json);
 })
 
 router.route('/sprints').get(async (req, res) => {
-	let json = await asyncRequest(sprintsUrl)
+	let json = await asyncRequest(config.sprintsUrl)
 						.catch(err => res.status(400).json(err));
 	res.json(json);
 })
 
 router.route('/rates').get(async (req, res) => {
-	let sprints = await asyncRequest(sprintsUrl)
+	let sprints = await asyncRequest(config.sprintsUrl)
 					        .catch(err => res.status(400).json(err));
 
 	if (sprints.length) {
@@ -91,7 +86,7 @@ router.route('/rates').get(async (req, res) => {
 })
 
 async function newSprint (sprint, res) {
-	let json = await asyncRequest(projectsUrl)
+	let json = await asyncRequest(config.projectsUrl)
 						.catch(err => res.status(400).json(err));
 
 	var document = new RateHistory ({
