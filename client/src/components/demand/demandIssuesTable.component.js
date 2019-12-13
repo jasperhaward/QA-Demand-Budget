@@ -20,12 +20,12 @@ const Issue = (props) => {
 			<td>{ props.convertTime(issue.fields.timespent/60) }</td>
 	        <td>{ issue.fields.timeoriginalestimate/3600 + "h"}</td>
 			<td>{ props.rate * issue.fields.timeoriginalestimate/3600 }</td>
-			
+			<td><IssueModal issue={issue} convertTime={props.convertTime}/></td>
     	</tr>
 	)
 }
 
-//<td><IssueModal issue={issue} convertTime={props.convertTime}/></td>
+
 
 export default function IssuesTable (props) {
 	const convertTime = (totalTime) => {
