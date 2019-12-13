@@ -16,6 +16,7 @@ const story = () => {
 		components: {
 			ios: 0,
 			android: 0,
+
 			
 		}
 	})
