@@ -3,7 +3,7 @@ import IssuesTable from "./demandIssuesTable.component";
 import UploadModal from "../upload/uploadModal.component";
 import "./demand.css";
 
-export default function TableRow (props) {
+export default function ProjectRow (props) {
 	const project = props.project;
 	const issues = props.issues;
 	const [issueTableClosed, setIssueTableClosed] = useState(true);

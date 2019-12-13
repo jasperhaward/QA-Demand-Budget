@@ -45,7 +45,7 @@ function App() {
     	<Router>
     		<div className="App">
     			<AppNavbar validToken={validToken} logout={() => logout}/>
-				<Route path="/login" render={() => <Login validToken={validToken} login={login}/>}/>	
+				<Route path="/login" render={() => <Login validToken={validToken} login={login}/>}/>
 				<PrivateRoute validToken={validToken} path="/demand" component= {DemandDisplay}/>
 				<PrivateRoute validToken={validToken} path="/devs" exact component= {DevDisplay} />
 				<PrivateRoute validToken={validToken} path="/devs/add/" component= {AddDevDisplay} />

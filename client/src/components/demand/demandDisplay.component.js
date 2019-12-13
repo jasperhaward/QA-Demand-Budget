@@ -3,7 +3,7 @@ import axiosConfig from '../../auth/axiosConfig';
 import { Table, Container } from 'reactstrap';
 import "./demand.css";
 import config from '../../config.js';
-import TableRow from "./demandTableRow.component"
+import ProjectRow from "./demandProjectRow.component"
 import FunctionBar from "./demandFunctionBar.component"
 
 export default function DemandDisplay () {
@@ -18,16 +18,22 @@ export default function DemandDisplay () {
 		acc: true,
 		post: true
 	});
+
+	const [value, forceUpdate] = useState(false);
 	
 	const updateStatus = (type) => {
 		var tempStatus = status;
 		tempStatus[type] = !status[type];
 
 		setStatus(tempStatus);
+
+		forceUpdate(!value); // To cause re-render on filter
 	}
 
 	const filterIssues = (projectKey) => {
-		return issues
+		var tempIssues = [];
+
+		tempIssues = issues
 				.filter(issue => issue.fields.project.key === projectKey )
 				.filter(issue => ( !issue.fields.sprint && sprint.name === "Un-assigned" ) ||
 								 ( issue.fields.sprint && issue.fields.sprint.name === sprint.name ) || 
@@ -36,12 +42,14 @@ export default function DemandDisplay () {
 								 ( issue.fields.status.name.includes("Developer") && status.dev ) ||
 								 ( issue.fields.status.name.includes("Owner") && status.owner ) ||
 								 ( issue.fields.status.name.includes("Accepted") && status.acc ) || 
-							 	 ( issue.fields.status.name.includes("Postponed") && status.post ) )
+								 ( issue.fields.status.name.includes("Postponed") && status.post ))
+								  
+		return tempIssues;
 	}
 
 	const filterRates = (projectKey) => {
 		var rate = 0;
-		
+
 		rates
 			.filter(ratesSprint => ratesSprint.sprint === sprint.name )
 			.map(selectedSprint =>  selectedSprint.projects
@@ -54,7 +62,7 @@ export default function DemandDisplay () {
 	const renderProjects = () => {
 		return (
 			projects.map(project => (
-				<TableRow key={project.id} 
+				<ProjectRow key={project.id} 
 						  project={project} 
 						  sprint={sprint}
 						  rate={filterRates(project.key)}
@@ -72,7 +80,7 @@ export default function DemandDisplay () {
 		axiosConfig.get(config.issuesUrl)
 			.then(res => setIssues(res.data))
 			.catch(err => console.warn(err));	
-	}, [setIssues, setProjects])
+	}, [])
 
     return (
 		<Container className="Container">
