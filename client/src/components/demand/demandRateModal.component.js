@@ -32,7 +32,7 @@ function RateRow (props) {
 	)
 }
 
-export default function RateModal (props) {
+export default function RateModal ({ rates, updateRates  }) {
 	const [sprintFilter, setSprintFilter] = useState('');
 	const [modalOpen, setModalOpen] = useState(false);
 
@@ -41,7 +41,7 @@ export default function RateModal (props) {
 	const updateDb = (rate, project, _id) => {
 		if (rate) {
 			axiosConfig.post(config.updateRatesUrl, { rate: rate, project: project, id: _id })
-				.then(res => props.updateRates(res.data))
+				.then(res => updateRates(res.data))
 				.catch(err => console.warn(err));
 		}
 	}
@@ -49,7 +49,7 @@ export default function RateModal (props) {
 	const renderRates = () => {
 		var items = [];
 		
-		props.rates
+		rates
 			.filter( sprint => sprint.sprint === sprintFilter.name )
 			.map( sprint => sprint.projects
 				.map(( project, index ) => items.push(
@@ -62,9 +62,9 @@ export default function RateModal (props) {
 	
 	useEffect (() => {
 		axiosConfig.get(config.ratesUrl)
-			.then(res => props.updateRates(res.data))
+			.then(res => updateRates(res.data))
 			.catch(err => console.warn(err));	
-	}, [props.updateRates]);
+	}, [updateRates]);
 
 	return	(
 		<Button className="Button" onClick={toggle}> 

@@ -48,6 +48,7 @@ function validateCredentials (username, password, callback) {
 }
 
 function checkToken (req, res, next) {
+	console.log('request')
 	if (req.path === '/auth/login/') {
 		next();
 	} else {

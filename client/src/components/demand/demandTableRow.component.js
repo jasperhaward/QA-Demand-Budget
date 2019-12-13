@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import IssuesTable from "./demandIssuesTable.component";
 import UploadModal from "../upload/uploadModal.component";
 import "./demand.css";

@@ -9,7 +9,7 @@ import {
 	DropdownToggle
 } from 'reactstrap';
 
-export default function SprintDropDown (props) {
+export default function SprintDropDown ({ additionalOptions, sprint, updateSprint }) {
 	const [open, setOpen] = useState(false);
 	const [sprints, setSprints] = useState([]);
 
@@ -17,7 +17,7 @@ export default function SprintDropDown (props) {
 
 	const mapSprints = () => {
 		return sprints.map(sprint => (
-			<DropdownItem key={sprint.id} onClick={() => props.updateSprint(sprint) }>
+			<DropdownItem key={sprint.id} onClick={() => updateSprint(sprint) }>
 				{sprint.name}
 			</DropdownItem>
 		))
@@ -30,27 +30,26 @@ export default function SprintDropDown (props) {
 
 				for (var sprint of sprints) {
 					if (sprint.state === 'active') {
-						props.updateSprint(sprint)
+						updateSprint(sprint)
 					}
 				}
-
 				setSprints(sprints);
 			})
 			.catch(error => console.warn(error));
-	}, [props.updateSprint, setSprints])
+	}, [updateSprint, setSprints])
 	
 	return (
 		<Dropdown isOpen={open} toggle={toggle} >
 			<DropdownToggle className="DropDown" caret>
-				{props.sprint.name}
+				{sprint.name}
 			</DropdownToggle>
-			{props.additionalOptions 
+			{additionalOptions 
 			?
 				<DropdownMenu>
-					<DropdownItem onClick={() => props.updateSprint({ name: 'All' })}>
+					<DropdownItem onClick={() => updateSprint({ name: 'All' })}>
 						All
 					</DropdownItem>
-					<DropdownItem onClick={() => props.updateSprint({ name: 'Un-assigned' })}>
+					<DropdownItem onClick={() => updateSprint({ name: 'Un-assigned' })}>
 						Un-assigned
 					</DropdownItem>
 					<DropdownItem divider/>
