@@ -9,6 +9,18 @@ import {
 } from 'reactstrap';
 import "./upload.css";
 
+const story = () => {
+	return ({
+		summary: '',
+		description: '',
+		components: {
+			ios: 0,
+			android: 0,
+			
+		}
+	})
+}
+
 export default function UploadModal (props) {
 	const sprint  = props.sprint;
 	const project = props.project;
