@@ -8,7 +8,7 @@ Input + Button {
 
 Table {
 	overflow-x: scroll;  
-	margin: 0px 0px 0px 0px !important;
+	margin: 0px 0px 10px 0px !important;
 	border-collapse: separate !important;
 	text-align: center;
 }
@@ -22,6 +22,10 @@ th {
 td {
 	vertical-align: middle !important;
 	font-size: 14px;
+}
+
+.RateTd {
+	height: 40px !important;
 }
 
 td img {
@@ -76,11 +80,8 @@ label {
 	margin: 15px 15px 10px 15px;
 }
 
-.RateBar {
-	display: flex;
-	justify-content: space-between; 
-	align-items: center;
-	margin: 0px 90px 15px 0px;
+.RatesTable {
+	margin: 10px 0px 0px 0px !important;
 }
 
 .Column {

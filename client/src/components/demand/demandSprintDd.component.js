@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import axiosConfig from '../../auth/axiosConfig';
 import config from "../../config.js"
 import "./demand.css";
@@ -9,63 +9,57 @@ import {
 	DropdownToggle
 } from 'reactstrap';
 
-export default class SprintDropDown extends Component {
-	constructor(props) {
-    	super(props);
+export default function SprintDropDown (props) {
+	const [open, setOpen] = useState(false);
+	const [sprints, setSprints] = useState([]);
 
-    	this.state = {
-			sprints: [],
-			dropDownOpen: false
-   		};
+	const toggle = () => setOpen(!open);
+
+	const mapSprints = () => {
+		return sprints.map(sprint => (
+			<DropdownItem key={sprint.id} onClick={() => props.updateSprint(sprint) }>
+				{sprint.name}
+			</DropdownItem>
+		))
 	}
 
-	componentDidMount() {
-		axiosConfig.get( config.sprintsUrl )
-			.then(res => this.setState({ sprints: res.data.values || []}))
+	useEffect (() => {
+		axiosConfig.get(config.sprintsUrl )
+			.then(res => {
+				const sprints = res.data.values || [];
+
+				for (var sprint of sprints) {
+					if (sprint.state === 'active') {
+						props.updateSprint(sprint)
+					}
+				}
+
+				setSprints(sprints);
+			})
 			.catch(error => console.warn(error));
-	}
-
-	renderMenu () {
-		if ( this.props.additionalOptions ) {
-			return (
-				<DropdownMenu>
-				<DropdownItem onClick={() => this.props.updateSprint({ name: 'All' })}>
-							All
-				</DropdownItem>
-				<DropdownItem onClick={() => this.props.updateSprint({ name: 'Un-assigned' })}>
-					Un-assigned
-				</DropdownItem>
-				<DropdownItem divider/>
-				{this.state.sprints.map( sprint => (
-					<DropdownItem key={sprint.id} onClick={() => this.props.updateSprint(sprint) }>
-						{sprint.name}
-					</DropdownItem>
-				))}
-				</DropdownMenu>
-			)
-		}
-		
-		return (
-			<DropdownMenu>
-				{this.state.sprints.map( sprint => (
-					<DropdownItem key={sprint.id} onClick={() => this.props.updateSprint(sprint) }>
-						{sprint.name}
-					</DropdownItem>
-				))}
-			</DropdownMenu>
-		)
-	}
+	}, [props.updateSprint, setSprints])
 	
-	render () {
-		const toggleDropDown = () => this.setState({ dropDownOpen: !this.state.dropDownOpen });
-
-		return (
-			<Dropdown isOpen={this.state.dropDownOpen} toggle={toggleDropDown} >
-				<DropdownToggle className="DropDown" caret>
-					{this.props.sprint.name}
-				</DropdownToggle>
-				{this.renderMenu()}
-			</Dropdown>
-		)
-  	}
+	return (
+		<Dropdown isOpen={open} toggle={toggle} >
+			<DropdownToggle className="DropDown" caret>
+				{props.sprint.name}
+			</DropdownToggle>
+			{props.additionalOptions 
+			?
+				<DropdownMenu>
+					<DropdownItem onClick={() => props.updateSprint({ name: 'All' })}>
+						All
+					</DropdownItem>
+					<DropdownItem onClick={() => props.updateSprint({ name: 'Un-assigned' })}>
+						Un-assigned
+					</DropdownItem>
+					<DropdownItem divider/>
+					{mapSprints()}
+				</DropdownMenu>
+			:
+				<DropdownMenu>
+					{mapSprints()}
+				</DropdownMenu>}
+		</Dropdown>
+	)
 }

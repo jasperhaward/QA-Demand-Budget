@@ -61,7 +61,7 @@ export default class DemandDisplay extends Component {
 		var rate = 0;
 
 		this.state.rates
-			.filter( sprint => sprint.sprint === this.state.sprint )
+			.filter( sprint => sprint.sprint === this.state.sprint.name )
 			.map( selectedSprint =>  selectedSprint.projects
 				.filter( project => project.key === projectKey )
 				.map( project => rate = project.rate ))

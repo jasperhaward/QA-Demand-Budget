@@ -9,22 +9,6 @@ import {
 } from 'reactstrap';
 import "./upload.css";
 
-const story = (props) => (
-	{ 
-		summary: props.name,
-		description: props.description,
-		components: props.components
-	}
-)
-
-function App() {
-	//const [validToken, setValidToken] = useState(false);
-
-	return ( 
-		<div></div>
-	)
-}
-
 export default class UploadModal extends Component {
   	constructor(props) {
 		super(props);
@@ -32,20 +16,40 @@ export default class UploadModal extends Component {
     	this.state = {
 			open: false,
 			components: [],
-      		stories: []
+      		stories: [{}]
    		};
 	} 
 
-	addStory () {
-		
+	postStories () {
+		//axiosConfig.post()
 	}
 
-	upload () {
-		// POST TO ENDPOINT FOR PUSHING INTO JIRA
-	}
+	handleChange = (e, idx) => {
+		const { name, value } = e.target;
+		const stories = [...this.state.stories];
+		stories[idx] = {
+		  	[name]: value
+		};
+		this.setState({
+			stories
+		});
+	};
+	
+	handleAddRow = () => {
+		const story = { 
+			summary: '',
+			description: '',
+			components: ''
+		};
+		this.setState({
+		    stories: [...this.state.stories, story]
+		});
+	};
 
-	componentDidMount () {
-		// TODO COOKIES -> JSON etc
+	handleRemoveSpecificRow = (idx) => {
+		const stories = [...this.state.stories]
+		stories.splice(idx, 1)
+		this.setState({ stories })
 	}
 
   	render () {
@@ -67,31 +71,58 @@ export default class UploadModal extends Component {
     	return (
 			<Button className="Button" size="sm" onClick={e => toggle(e)}> 
 				+
-				<Modal size="lg" isOpen={this.state.open} toggle={toggle}>
+				<Modal size="xl" isOpen={this.state.open} toggle={toggle}>
         			<ModalHeader toggle={toggle}>
-						Upload {project.name} Demand for {sprint.name}
+						Upload demand stories to {project.name} for {sprint.name}
 					</ModalHeader>
         			<ModalBody>
-						<Button className="Button" size="sm" onClick={this.addStory()}>
-							+
-						</Button>
-
 						<Table striped bordered size="sm">
-							<thead>
-								<tr>
-									<th>Summary</th>
-									<th>Description</th>
-									<th>Components</th>
-								</tr>
-							</thead>
 							<tbody>
-
-							</tbody>
+								{this.state.stories.map((item, idx) => (
+    			                <tr key={idx}>
+                      				<td>
+                        				<input type="text"
+											   name="summary"
+											   placeholder="Summary"
+                        	  				   value={this.state.stories[idx].summary || ''}
+                          					   onChange={e => this.handleChange(e, idx)}
+										/>
+                      				</td>
+									<td>
+                        				<input type="text"
+                     	     				   name="description"
+											   placeholder="Description"
+                        	  				   value={this.state.stories[idx].description || ''}
+                          					   onChange={e => this.handleChange(e, idx)}
+										/>
+                      				</td>
+									<td>
+										<input type="text"
+                     	     				   name="components"
+                        	  				   value={this.state.stories[idx].components || ''}
+                          					   onChange={e => this.handleChange(e, idx)}
+										/>
+									</td>
+									<td>
+                        				<Button className="Button" size='sm' onClick={() => this.handleRemoveSpecificRow(idx)}>
+											Remove story
+										</Button>
+                      				</td>
+								</tr>
+                 				))}
+                			</tbody>
 						</Table>
+						
+						<div style={{display: 'flex', justifyContent: 'space-between', marginTop: '15px'}}>
+							<Button className="Button" onClick={() => this.handleAddRow()}>
+								Add story
+							</Button>
 
-						<Button className="Button" size="sm" onClick={this.upload()}>
-							Upload
-						</Button>
+							<Button className="Button" onClick={() => this.postStories()}>
+								Upload
+							</Button>
+						</div>
+						
 					</ModalBody>
 				</Modal>
 			</Button>
