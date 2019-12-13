@@ -9,45 +9,48 @@ import {
 } from 'reactstrap';
 import "./upload.css";
 
-const story = () => {
-	return ({
-		summary: '',
-		description: '',
-		components: {
-			ios: 0,
-			android: 0,
-
-			
-		}
-	})
-}
-
 export default function UploadModal (props) {
 	const sprint  = props.sprint;
 	const project = props.project;
 
 	const [open, setOpen] = useState(false);
-	const [components, setComponents] = useState([]);
-	const [stories, setStories] = useState([{}]);
-
+	const [stories, setStories] = useState([
+		{
+			summary: '',
+			description: '',
+			components: {
+				ios: 0,
+				android: 0,
+				design: 0
+			}
+		}
+	]);
+	
 	const postStories = () => {
 		//axiosConfig.post()
 	}
 
 	const handleChange = (e, idx) => {
-		const { name, value } = e.target;
-		const tempStories = stories;
-		tempStories[idx] = {
-		  	[name]: value
-		};
+		const tempStories = [...stories];
+		var { name, value } = e.target;
+		if (name.includes('components.')) {
+			name = name.replace("components.", "");
+			tempStories[idx].components[name] = value
+		} else {
+			tempStories[idx][name] = value
+		}
 		setStories(tempStories);
 	};
 	
 	const handleAddRow = () => {
-		const story = { 
+		const story = {
 			summary: '',
 			description: '',
-			components: ''
+			components: {
+				ios: 0,
+				android: 0,
+				design: 0
+			}
 		};
 		setStories([...stories, story]);
 	};
@@ -61,13 +64,9 @@ export default function UploadModal (props) {
 	const toggle = (e) => {
 		e.stopPropagation();
 
-		if (!sprint.name.includes( "All" || "Un-assigned") && 
-			sprint.state !== "closed") 
-		{
-			setOpen(!open);
-		} else { 
-			alert('Select current or future sprint to upload to.')
-		}
+		!sprint.name.includes( "All" || "Un-assigned") && sprint.state !== "closed" 
+		? setOpen(!open) 
+		: alert('Select current or future sprint to upload to.');
 	}
 
     return (
@@ -86,7 +85,7 @@ export default function UploadModal (props) {
                     				<input type="text"
 										   name="summary"
 										   placeholder="Summary"
-                    	  				   value={stories[idx].summary || ''}
+                    	  				   value={stories[idx].summary}
                         				   onChange={e => handleChange(e, idx)}
 									/>
                   				</td>
@@ -94,16 +93,20 @@ export default function UploadModal (props) {
                     				<input type="text"
 	             	     				   name="description"
 										   placeholder="Description"
-                        	  				value={stories[idx].description || ''}
+                        	  				value={stories[idx].description}
                           				   onChange={e => handleChange(e, idx)}
 									/>
                       			</td>
 								<td>
-									<input type="text"
-                         				   name="components"
-                    	  				   value={stories[idx].components || ''}
-                      					   onChange={e => handleChange(e, idx)}
-									/>
+									{Object.keys(item.components).map((compName, index) => 
+										<input key={index}
+											   type="text" 
+											   placeholder={compName}
+											   name={"components." + compName} 
+											   value={stories[idx].components.compName}
+											   onChange={e => handleChange(e, idx)}/>
+									)
+									}
 								</td>
 								<td>
                         			<Button className="Button" size='sm' onClick={() => handleRemoveSpecificRow(idx)}>
