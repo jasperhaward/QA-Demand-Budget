@@ -3,33 +3,56 @@ const request = require('request');
 const RateHistory = require("../models/rates.model");
 const config = require('../config');
 
-router.route("/subtasks/:id").post(async (req, res) => {
-	var subtasks = [];
-	let parent = await asyncRequest(config.uniqueIssueUrl + req.params.id)
+router.route('/upload').post(async (req, res) => {
+	req.body.stories.map(async story => {
+		var parentFields = {
+			fields: {
+				project: {
+					key: req.body.project.key
+				},
+				summary: story.summary,
+				description: story.description,
+				issuetype: {
+					name: 'Demand'
+				},
+				[config.sprintField]: req.body.sprint.id
+			}
+		}
+		
+		let parent = await asyncRequest(config.uploadUrl, true, parentFields)
 							.catch(err => res.status(400).json(err));
-	
-	await Promise.all(
-		parent.fields.subtasks.map(async subtask => {
-			subtask = await asyncRequest(config.uniqueIssueUrl + subtask.id)
-								.catch(err => res.status(400).json(err));
-			subtasks.push(subtask);
-		})
-	);
-	
-	res.json(subtasks);
+
+		console.log(parent)
+	});
+
+   	res.json('done')
+})
+
+router.route('/projects').get(async (req, res) => {
+	asyncRequest(config.projectsUrl)
+		.then(response => res.json(response))
+		.catch(err => res.status(400).json(err));
+})
+
+router.route('/sprints').get(async (req, res) => {
+	asyncRequest(config.sprintsUrl)
+		.then(response => res.json(response))
+		.catch(err => res.status(400).json(err));
 })
 
 router.route('/issues').get(async (req, res) => {
-	let json = await asyncRequest(config.issuesUrl)
-						.catch(err => res.status(400).json(err));
-	var issues = json.issues;
+	asyncRequest(config.issuesUrl)
+		.then(response => {
+			var issues = response.issues;
 
-	try {
-		issues.sort((a,b) => (switchCase(a) > switchCase(b)) ? 1 : (switchCase(a) < switchCase(b)) ? -1 : 0);
-		res.json(issues);
-	} catch {
-		res.json([])
-	}
+			try {
+				issues.sort((a,b) => (switchCase(a) > switchCase(b)) ? 1 : (switchCase(a) < switchCase(b)) ? -1 : 0);
+				res.json(issues);
+			} catch {
+				res.json([])
+			}
+		})
+		.catch(err => res.status(400).json(err));
 })
 
 function switchCase (issue) {
@@ -50,17 +73,21 @@ function switchCase (issue) {
 			return -1;
 	} 
 }
- 
-router.route('/projects').get(async (req, res) => {
-	let json = await asyncRequest(config.projectsUrl)
-					 	.catch(err => res.status(400).json(err));
-	res.json(json);
-})
 
-router.route('/sprints').get(async (req, res) => {
-	let json = await asyncRequest(config.sprintsUrl)
-						.catch(err => res.status(400).json(err));
-	res.json(json);
+router.route("/subtasks/:id").post(async (req, res) => {
+	var subtasks = [];
+	let parent = await asyncRequest(config.uniqueIssueUrl + req.params.id)
+							.catch(err => res.status(400).json(err));
+	
+	await Promise.all(
+		parent.fields.subtasks.map(async subtask => {
+			subtask = await asyncRequest(config.uniqueIssueUrl + subtask.id)
+								.catch(err => res.status(400).json(err));
+			subtasks.push(subtask);
+		})
+	);
+	
+	res.json(subtasks);
 })
 
 router.route('/rates').get(async (req, res) => {
@@ -121,19 +148,25 @@ router.route('/updaterates').post( async (req, res) => {
 		.catch(err => res.status(400).json(err))
 })
 
-function asyncRequest (url) {
+function asyncRequest (url, post, body) {
 	return new Promise (function (resolve, reject) {
 		var options = {
-	 		url: url,
-		  	auth: { 
-			 	username: 'jasper.haward', 
-			 	password: 'Cicero1245' 
-		 	}
- 		}
+			url: url,
+			headers: { 'content-type': 'application/json' },
+			auth: { 
+				username: config.username, 
+				password: config.password 
+			},
+		}
+		
+		if (post) {
+			options.method = 'POST',
+			options.body = JSON.stringify(body)
+		}
 	
- 		request(options, function (err, response, body) {
+ 		request(options, function (err, response, resBody) {
 			if (err) reject(err);
-	 		resolve(JSON.parse(body))
+	 		resolve(JSON.parse(resBody))
 		});
 	})
 }
