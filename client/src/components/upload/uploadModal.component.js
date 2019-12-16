@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import axiosConfig from '../../auth/axiosConfig';
+import config from "../../config";
 import { 
+	Input,
 	Table,
 	Button,
 	Modal,
@@ -19,15 +21,20 @@ export default function UploadModal (props) {
 			summary: '',
 			description: '',
 			components: {
-				ios: 0,
-				android: 0,
-				design: 0
+				iOS: 0,
+				Android: 0,
+				Design: 0,
+				TestHarness: 0,
+				Web: 0,
+				Windows: 0
 			}
 		}
 	]);
 	
 	const postStories = () => {
-		//axiosConfig.post()
+		//alert('Are you sure?')
+		axiosConfig.post(config.uploadUrl, { project: project, sprint: sprint, stories: stories })
+			.then(res => console.log(res))
 	}
 
 	const handleChange = (e, idx) => {
@@ -47,17 +54,20 @@ export default function UploadModal (props) {
 			summary: '',
 			description: '',
 			components: {
-				ios: 0,
-				android: 0,
-				design: 0
+				iOS: 0,
+				Android: 0,
+				Design: 0,
+				TestHarness: 0,
+				Web: 0,
+				Windows: 0
 			}
 		};
 		setStories([...stories, story]);
 	};
 
 	const handleRemoveSpecificRow = (idx) => {
-		const tempStories = stories
-		tempStories.splice(idx, 1)
+		const tempStories = [...stories];
+		tempStories.splice(idx, 1);
 		setStories(tempStories);
 	}	
 
@@ -82,7 +92,8 @@ export default function UploadModal (props) {
 							{stories.map((item, idx) => (
     			            <tr key={idx}>
                   				<td>
-                    				<input type="text"
+									<Input type="textarea"
+										   className="SummaryInput"
 										   name="summary"
 										   placeholder="Summary"
                     	  				   value={stories[idx].summary}
@@ -90,25 +101,30 @@ export default function UploadModal (props) {
 									/>
                   				</td>
 								<td>
-                    				<input type="text"
+									<Input type="textarea"
+										   className="DescriptionInput"
 	             	     				   name="description"
 										   placeholder="Description"
-                        	  				value={stories[idx].description}
+                        	  			   value={stories[idx].description}
                           				   onChange={e => handleChange(e, idx)}
 									/>
                       			</td>
-								<td>
+								<td className='ComponentTd'>
 									{Object.keys(item.components).map((compName, index) => 
-										<input key={index}
-											   type="text" 
-											   placeholder={compName}
-											   name={"components." + compName} 
-											   value={stories[idx].components.compName}
-											   onChange={e => handleChange(e, idx)}/>
-									)
-									}
+										<div key={index} className='ComponentDiv'>
+											<label>{compName}</label>
+											<Input type="number" 
+												   size="sm"
+												   className='ComponentInput'
+												   defaultValue={0}
+												   name={"components." + compName} 
+												   value={stories[idx].components.compName}
+												   onChange={e => handleChange(e, idx)}
+											/>
+										</div>
+									)}
 								</td>
-								<td>
+								<td className='ButtonTd'>
                         			<Button className="Button" size='sm' onClick={() => handleRemoveSpecificRow(idx)}>
 										Remove story
 									</Button>
@@ -118,7 +134,7 @@ export default function UploadModal (props) {
             			</tbody>
 					</Table>
 					
-					<div style={{display: 'flex', justifyContent: 'space-between', marginTop: '15px'}}>
+					<div className="ModalButtons">
 						<Button className="Button" onClick={() => handleAddRow()}>
 							Add story
 						</Button>

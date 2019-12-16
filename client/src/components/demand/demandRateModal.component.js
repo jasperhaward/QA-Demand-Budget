@@ -19,12 +19,8 @@ function RateRow (props) {
 			<td>{props.project.key}</td>
 			<td>{props.project.rate}</td>
 			<td> 
-				<input placeholder="Input new rate" 
-				   onChange={(e) => setInputVal(e.target.value)}>
-				</input>
-				<Button className="Button" 
-						onClick={() => props.updateDb(inputVal, props.project.key, props.sprint._id)}
-						size="sm">
+				<input type="number" placeholder="Input new rate" onChange={e => setInputVal(e.target.value)}/>
+				<Button className="Button" size="sm" onClick={() => props.updateDb(inputVal, props.project.key, props.sprint._id)}>
 					Update
 				</Button>
 			</td>

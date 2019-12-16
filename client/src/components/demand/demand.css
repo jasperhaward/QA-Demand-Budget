@@ -7,8 +7,7 @@ Input + Button {
 }
 
 Table {
-	overflow-x: scroll;  
-	margin: 0px 0px 10px 0px !important;
+	margin: 0px!important;
 	border-collapse: separate !important;
 	text-align: center;
 }
@@ -62,10 +61,12 @@ label {
 
 .TableDiv {
 	margin: 0px 10px 5px 10px;
+	table-layout: fixed;
+	overflow-x: scroll;  
 }
 
 .Container {
-	min-width: 1500px !important;
+	min-width: 80% !important;
 	margin-top: 20px;
 	border-radius: 4px;
 	box-shadow: 2px 2px 5px rgba(0,0,0,.3);

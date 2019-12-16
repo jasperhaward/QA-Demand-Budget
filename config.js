@@ -4,11 +4,17 @@ module.exports = {
 	// CORS ORIGIN
 	frontendUrl: "http://localhost:3000",
 	
-	// JIRA URLS 
+	// JIRA 
+	sprintField: 'customfield_10104',
+
+	username: 'jasper.haward',
+	password: 'Cicero1245',
+
 	issuesUrl: baseUrl + 'agile/1.0/board/2/issue/',
 	uniqueIssueUrl: baseUrl + "agile/1.0/issue/",
 	sprintsUrl: baseUrl + 'agile/1.0/board/9/sprint/',
 	projectsUrl: baseUrl + 'api/2/project/',
+	uploadUrl: baseUrl + 'api/2/issue/',
 
 	// JWT VARS 
 	secret: "testingjwt",

@@ -8,7 +8,8 @@ export default {
 	ratesUrl: baseUrl + "/jira/rates",
 	subtasksUrl: baseUrl + "/jira/subtasks/",
 	updateRatesUrl: baseUrl + "/jira/updaterates",
-	jiraUrl: baseUrl + "/browse/",
+	uploadUrl: baseUrl + "/jira/upload",
+	jiraUrl: "http://localhost:8080/browse/",
 
 	// FOR AUTH AND SESSION 
 	
