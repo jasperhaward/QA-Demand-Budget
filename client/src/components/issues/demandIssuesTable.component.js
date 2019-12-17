@@ -47,7 +47,7 @@ export default function IssuesTable (props) {
 			<thead>
 			  	<tr>
 					<th className="Column">Key</th>
-					<th>Summary</th>
+					<th className="Summary">Summary</th>
 					<th className="Status">Status</th>
 				   	<th className="Column">Sprint</th>
 					<th className="Column">Logged Time</th>
