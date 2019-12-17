@@ -5,27 +5,41 @@ const config = require('../config');
 
 router.route('/upload').post(async (req, res) => {
 	req.body.stories.map(async story => {
-		var parentFields = {
-			fields: {
-				project: {
-					key: req.body.project.key
-				},
-				summary: story.summary,
-				description: story.description,
-				issuetype: {
-					name: 'Demand'
-				},
-				[config.sprintField]: req.body.sprint.id
+		if (story.summary) {
+			var parentFields = {
+				fields: {
+					project: { key: req.body.project.key },
+					summary: story.summary,
+					description: story.description,
+					issuetype: { name: 'Demand' },
+					[config.sprintField]: req.body.sprint.id
+				}
 			}
-		}
 		
-		let parent = await asyncRequest(config.uploadUrl, true, parentFields)
-							.catch(err => res.status(400).json(err));
+			let parent = await asyncRequest(config.uploadUrl, true, parentFields)
+								.catch(err => res.status(400).json(err));
 
-		console.log(parent)
+			await Promise.all(
+				Object.keys(story.components).map(async component => {
+					if (story.components[component] && parent.key) {
+						var childFields = {
+							fields: {
+								project: { key: req.body.project.key },
+								parent: { key: parent.key },
+								summary: component + ' - ' + story.summary,
+								issuetype: { name: 'Sub-task' },
+								timetracking: { originalEstimate: story.components[component] + 'h' }
+							}
+						}
+						await asyncRequest(config.uploadUrl, true, childFields)
+								.catch(err => res.status(400).json(err));
+					}
+				})
+			);
+		}
 	});
 
-   	res.json('done')
+	res.status(200).json({ status: 'Uploaded' })
 })
 
 router.route('/projects').get(async (req, res) => {

@@ -1,8 +1,8 @@
 import React from 'react';
 import { Table } from 'reactstrap';
-import IssueModal from "./demandIssueModal.component"
-import "./demand.css";
 import config from '../../config.js';
+import IssueModal from "./demandIssueModal.component"
+import "../demand/demand.css";
 
 const Issue = (props) => {
 	const issue = props.issue;

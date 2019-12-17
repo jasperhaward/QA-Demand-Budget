@@ -7,7 +7,7 @@ Input + Button {
 }
 
 Table {
-	margin: 0px!important;
+	margin: 5px 0px 5px 0px !important;
 	border-collapse: separate !important;
 	text-align: center;
 }
@@ -21,10 +21,6 @@ th {
 td {
 	vertical-align: middle !important;
 	font-size: 14px;
-}
-
-.RateTd {
-	height: 40px !important;
 }
 
 td img {
@@ -82,7 +78,28 @@ label {
 }
 
 .RatesTable {
-	margin: 10px 0px 0px 0px !important;
+	margin: 15px 0px 0px 0px !important;
+}
+
+.RateButton {
+	background-color: #5514b4 !important;
+	margin: 15px 5px 15px 5px;
+}
+
+.RateTd {
+	vertical-align: middle !important;
+	display: flex;
+	justify-content: center;
+	height: 80px !important;
+}
+
+.RateInput {
+	margin-top: 15px;
+	width: 150px !important;
+}
+
+.SubtasksTable {
+	margin: 0px !important;
 }
 
 .Column {
@@ -94,3 +111,4 @@ label {
 	width: 180px;
 	min-width: 180px;
 }
+

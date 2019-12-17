@@ -3,6 +3,7 @@ import axiosConfig from '../../auth/axiosConfig';
 import config from '../../config.js';
 import "./demand.css";
 import { 
+	Input,
 	Button,
 	Modal,
 	ModalBody,
@@ -15,12 +16,12 @@ function RateRow (props) {
 	const [inputVal, setInputVal] = useState(false);
 	
 	return (
-		<tr className="RateTd">
+		<tr>
 			<td>{props.project.key}</td>
 			<td>{props.project.rate}</td>
-			<td> 
-				<input type="number" placeholder="Input new rate" onChange={e => setInputVal(e.target.value)}/>
-				<Button className="Button" size="sm" onClick={() => props.updateDb(inputVal, props.project.key, props.sprint._id)}>
+			<td className="RateTd"> 
+				<Input type="number" placeholder="Input new rate" className='RateInput' onChange={e => setInputVal(e.target.value)}/>
+				<Button className="RateButton" size="sm" onClick={() => props.updateDb(inputVal, props.project.key, props.sprint._id)}>
 					Update
 				</Button>
 			</td>

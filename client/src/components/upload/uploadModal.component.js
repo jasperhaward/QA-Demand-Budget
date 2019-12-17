@@ -32,9 +32,12 @@ export default function UploadModal (props) {
 	]);
 	
 	const postStories = () => {
-		//alert('Are you sure?')
+		alert('Sure you want to upload {stories.length} stories?')
 		axiosConfig.post(config.uploadUrl, { project: project, sprint: sprint, stories: stories })
 			.then(res => console.log(res))
+
+		setOpen(!open);
+		window.location.reload();
 	}
 
 	const handleChange = (e, idx) => {

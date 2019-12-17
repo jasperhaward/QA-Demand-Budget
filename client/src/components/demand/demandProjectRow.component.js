@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import IssuesTable from "./demandIssuesTable.component";
+import IssuesTable from "../issues/demandIssuesTable.component";
 import UploadModal from "../upload/uploadModal.component";
 import "./demand.css";
 

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axiosConfig from '../../auth/axiosConfig';
 import config from '../../config.js';
-import "./demand.css";
+import "../demand/demand.css";
 import { 
 	Table,
 	Button,
@@ -58,7 +58,7 @@ export default function IssueModal (props) {
 					<div>{props.issue.fields.description}</div>
 					<h5>Subtasks:</h5>
 
-					<Table striped bordered size="sm" hidden={!subtasks.length}>
+					<Table striped bordered size="sm" className="SubtasksTable" hidden={!subtasks.length}>
 						<thead>
 							<tr>
 								<th>Key</th>
