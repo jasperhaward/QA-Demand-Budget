@@ -8,7 +8,7 @@ module.exports = {
 	sprintField: 'customfield_10104',
 
 	username: 'jasper.haward',
-	password: 'Cicero1245',
+	password: 'xxxxxxx',
 
 	issuesUrl: baseUrl + 'agile/1.0/board/2/issue/',
 	uniqueIssueUrl: baseUrl + "agile/1.0/issue/",
@@ -17,7 +17,7 @@ module.exports = {
 	uploadUrl: baseUrl + 'api/2/issue/',
 
 	// JWT VARS 
-	secret: "testingjwt",
+	secret: "xxxxxxxx",
 	tokenDuration: 3600, // DURATION OF TOKEN SECONDS
 
 	// LDAP CREDS 
